@@ -1,0 +1,16 @@
+.DeckContent {
+    width: 100%;
+}
+.DeckContent .container{
+    display: flex;
+    justify-content: center;
+    margin: 40px auto 0px 180px;
+    height: 282px;
+}
+
+.DeckContent .OneCard:hover, .OneCard:focus {
+    background-color: #61dafb;
+    color: black;
+    cursor: pointer;
+}
+  
