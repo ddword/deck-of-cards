@@ -26,7 +26,7 @@ const DeckBox: React.FC<Props>= (props) => {
     // do shuffle
     let newData = shuffle(deck);
     setData([...newData]);
-    console.log("Shuffle data", data[0], data[1])
+    // console.log("Shuffle data", data[0], data[1])
   }
 
   const shuffle = (deck: any[]) => {

@@ -30,7 +30,7 @@ const App = () => {
 
   //get cards & update state when click event occurs in child
   const parentOneCardCallback = (cards: ICard[]) => {
-    console.log("Card here", cards)
+    //console.log("Card here", cards)
     setCard(cards)
   }
   
