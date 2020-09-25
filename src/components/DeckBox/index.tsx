@@ -2,6 +2,10 @@ import React from "react";
 import CardBox from '../CardBox';
 import './index.css';
 
+interface ICard {
+  rank: string|number;
+  suit: string;
+}
 /**
 class Card {
   rank: string|number;
@@ -30,31 +34,9 @@ class Deck {
       }
     }
     //
-  }
+  }*/
 
-  shuffle(){
-    const { deck } = this;
-    let m = deck.length, i;
-    // simplify
-    while(m){
-      i = Math.floor(Math.random() * m--);
-      [deck[m], deck[i]] = [deck[i], deck[m]];
-    }
-
-    return this;
-  }
-
-  dealOneCard(){
-    // TODO:take a random card, remove this random card from the deck, display it as selected card. 
-    function getRandomCardId(min: number, max: number) {
-      return Math.floor(Math.random() * (max - min + 1));
-    }
-    let randomCardId = getRandomCardId(0, 51);
-    //return this.deck.pop();
-    return this.deck.splice(randomCardId, 1);
-    //return {card: this.deck[randomCardId]};
-  }
-
+  /*
   // reset deck before deal a card
   reset(){
     this.deck = [];
@@ -92,22 +74,45 @@ const kList = Object.entries(oneCard).map(([key,value])=>{
 })
  */
 type Props = {
-  data: any[]
+  data: ICard[],
+  parentOneCardCallback(card: ICard): void,
+  parentShuffleCallback(data: ICard[]): void
 }
 
 const DeckBox: React.FC<Props>= (props) => {
   const { data } = props;
-  console.log("default Deck data", data)
+  console.log("default Deck data", data[0], data[1])
+
+  const shuffle = (data: any[]) => {
+    let m = data.length;
+    let i = 0;
+    while(m){
+      i = Math.floor(Math.random() * m--);
+      [data[m], data[i]] = [data[i], data[m]];
+    }
+    console.log('Here shuffle', data[0], data[1])
+    props.parentShuffleCallback(data);
+    return data;
+  }
+
+  const dealOneCard = (card:ICard, id:number) => {
+    props.parentOneCardCallback(card);
+    props.data.splice(id, 1);
+    //return {card: this.deck[randomCardId]};
+  }
     return (
       <div className="DeckContent">
         <div className="container">
-          {data.map((card, index) => {
+          {data.map((card: ICard, index) => {
             return (
-              <div className="animated slideInDown" key={index}>
+              <div className="animated slideInDown" key={index} onClick={() => dealOneCard(card, index)}>
                 <CardBox rank={card.rank} suit={card.suit} />
               </div>
             ); 
           })}
+        </div>
+        <div className="button-container">
+          <button onClick={() => shuffle(data)}>Shuffle</button>
         </div>
       </div>
     )

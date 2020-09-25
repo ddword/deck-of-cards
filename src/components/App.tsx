@@ -1,21 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DeckBox from './DeckBox';
 import CardBox from './CardBox';
 import './App.css';
   
-
-  class Card {
-    rank: string|number;
-    suit: string;
-
-    constructor(rank: string|number, suit: string) {
-      this.rank = rank;
-      this.suit = suit;
-    }
-  }
-
-  let oneCard = new Card(2, 'Club');
-  /*const kList = Object.entries(oneCard).map(([key,value])=>{
+interface ICard {
+  rank: string|number;
+  suit: string;
+}
+  
+  /*const kList = Object.entries(card).map(([key,value])=>{
     return (
       <div key = {key}>{key} : {value.toString()}</div>
     );
@@ -33,24 +26,36 @@ import './App.css';
     //return {card: this.deck[randomCardId]};
   }*/
   //console.log("default Deck data", data)
+const suits = ['Hearts', 'Spades', 'Clubs', 'Diamonds'];
+const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace'];
+
+const generateDeck = (suits:Array<string>, values:Array<string|number>) => {
+  const deck = []
+  for (let suit in suits) {
+    for (let value in values) {
+      // deck.push(new Card(values[value], suits[suit]));
+      deck.push({ 'rank': values[value], 'suit': suits[suit] });
+    }
+  }
+  return deck;
+}
 
 const App = () => {
-  const suits = ['Hearts', 'Spades', 'Clubs', 'Diamonds'];
-  const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace'];
-  
-  const generateDeck = (suits:Array<string>, values:Array<string|number>) => {
-    const deck = []
-    for (let suit in suits) {
-      for (let value in values) {
-        // deck.push(new Card(values[value], suits[suit]));
-        deck.push({ 'rank': values[value], 'suit': suits[suit] });
-      }
-    }
-    return deck;
-  }
-  const data = generateDeck(suits, values);
 
-  const shuffle = (data: any[]) => {
+  let data: ICard[] = generateDeck(suits, values);
+
+  const [card, setCard] = useState<ICard | null>(null);
+  let [sdata, setData] = useState(data);
+
+  const parentOneCardCallback = (card: ICard) => {
+    setCard(card);
+  }
+
+  const parentShuffleCallback = (newData: ICard[]) => {
+    console.log("newData", newData[0], newData[1])
+    setData(newData);
+  }
+  /*shuffle(data: any[]) {
     let m = data.length;
     let i = 0;
     while(m){
@@ -58,17 +63,14 @@ const App = () => {
       [data[m], data[i]] = [data[i], data[m]];
     }
     return data;
-  }
+  }*/
   //<!--<header className="App-header">{ kList }</header>-->
   return (
     <div className="App">
-      <DeckBox data={ data }/>
-      <div className="button-container">
-        <button onClick={() => shuffle(data)}>Shuffle</button>
-      </div>
+      <DeckBox data= { sdata } parentShuffleCallback={parentShuffleCallback} parentOneCardCallback={parentOneCardCallback}/>
       <div className="card-container">
         <div className="animated slideInUp">
-         { oneCard && <CardBox rank={oneCard?.rank} suit={oneCard?.suit} />
+         { card && <CardBox rank={card?.rank} suit={card?.suit} />
           }
         </div>
       </div>
