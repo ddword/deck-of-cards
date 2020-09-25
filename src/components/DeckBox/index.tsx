@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import CardBox from '../CardBox';
 import './index.css';
 
@@ -9,15 +9,21 @@ interface ICard {
 
 type Props = {
   deck: ICard[],
-  parentOneCardCallback(card: ICard): void,
+  parentOneCardCallback(cards: ICard[]): void,
 }
 
 const DeckBox: React.FC<Props>= (props) => {
   const { deck } = props;
-
+  // watch updates of state data when you do shuffle
   let [data, setData] = useState(deck);
+  // watch cards state when you do shuffle, deal one card
+  let [cards, setCards] = useState<ICard[]>([]);
 
   const onShuffle = (deck: any[]) => {
+    // reset cards in hand
+    setCards([])
+    props.parentOneCardCallback([]);
+    // do shuffle
     let newData = shuffle(deck);
     setData([...newData]);
     console.log("Shuffle data", data[0], data[1])
@@ -34,9 +40,16 @@ const DeckBox: React.FC<Props>= (props) => {
   }
 
   const dealOneCard = (card:ICard, id:number) => {
-    props.parentOneCardCallback(card);
+    //deal cards by one, accumulate it in hand 
+    if (cards.length < 52) {
+      cards.push(card);
+      setCards([...cards])
+    }
+    // transfer cards to parent App
+    props.parentOneCardCallback(cards);
     data.splice(id, 1);
   }
+
   return (
     <div className="DeckContent">
       <div className="container">
