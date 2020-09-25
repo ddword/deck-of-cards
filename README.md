@@ -1,3 +1,17 @@
+# Deck of Cards assessment 
+
+## Summary of the approach
+- To describe shape of file object I used interface `IVard`
+
+- To pass event from `(Child)` to `(Parent)` use callback approach: 
+    - defined callback in Parent -> 
+    - pass it as a prop to the child ->
+    - call the callback using props.parentCallback in the child
+
+- To manage application state use React Hook `useState()` and to manage update of state in rendering for `React.FC` I took `useEffect()`
+
+- In order to be able to deal cards in a completely random way, I implemented flipping the card on back side. You can click the Flip button to see it.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -26,6 +40,7 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
 
 ### `yarn eject`
 
