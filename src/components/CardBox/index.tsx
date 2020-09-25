@@ -35,7 +35,7 @@ const CardBox = (props: Props) => {
   };
   
 
-  console.log("Here card", rank, suit, getCardIcon(suit))
+  //console.log("Here card", rank, suit, getCardIcon(suit))
     return (
       <div className="OneCard" style={{ color: `` }}>
         <div style={{ position: "absolute", top: 5, left: 5 }}>

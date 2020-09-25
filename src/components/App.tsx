@@ -42,19 +42,14 @@ const generateDeck = (suits:Array<string>, values:Array<string|number>) => {
 
 const App = () => {
 
-  let data: ICard[] = generateDeck(suits, values);
+  let deck: ICard[] = generateDeck(suits, values);
 
   const [card, setCard] = useState<ICard | null>(null);
-  let [sdata, setData] = useState(data);
 
   const parentOneCardCallback = (card: ICard) => {
     setCard(card);
   }
 
-  const parentShuffleCallback = (newData: ICard[]) => {
-    console.log("newData", newData[0], newData[1])
-    setData(newData);
-  }
   /*shuffle(data: any[]) {
     let m = data.length;
     let i = 0;
@@ -67,7 +62,7 @@ const App = () => {
   //<!--<header className="App-header">{ kList }</header>-->
   return (
     <div className="App">
-      <DeckBox data= { sdata } parentShuffleCallback={parentShuffleCallback} parentOneCardCallback={parentOneCardCallback}/>
+      <DeckBox deck= { deck } parentOneCardCallback={parentOneCardCallback}/>
       <div className="card-container">
         <div className="animated slideInUp">
          { card && <CardBox rank={card?.rank} suit={card?.suit} />
