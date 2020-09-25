@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DeckBox from './DeckBox';
 import CardBox from './CardBox';
+import 'typeface-roboto';
 import './App.css';
   
 interface ICard {
@@ -44,7 +45,7 @@ const App = () => {
         cards && cards.map((card, index) => {
         return (
           <div key={card.id}>
-            <CardBox suit={card.suit} rank={card.rank} id={card.id} />
+            <CardBox suit={card.suit} rank={card.rank} id={card.id} back={false}/>
           </div>
         ) 
       })} 

@@ -15,14 +15,14 @@ type Props = {
   rank: string|number;
   suit: string;
   id: number;
+  back: boolean;
 }
 const CardBox = (props: Props) => {
-  const { rank, suit, id } = props;
+  const { rank, suit, id, back } = props;
   let [icon, setIcon] = useState<string|undefined>(undefined);
 
   useEffect(() => {
     let result = getCardIcon(suit);
-    console.log("Suit icon",result, suit)
     setIcon(result)
   },[icon])
 
@@ -41,34 +41,27 @@ const CardBox = (props: Props) => {
         return symbol;
     };
   };
-  /**
-   * <div className="symbolTop" style={{ position: "absolute", top: 5, left: 5 }}>
-        <div className="cardRank" style={{ maxWidth: 20 }}>{rank}</div>
-        <img className="suitIcon" src={icon} style={{ width: 20 }}/>
-      </div>
-      <div>
-        <img className="symbolCenter" src={icon} style={{ height: 40, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}/>
-      </div>
-      <div className="symbolBottom" style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
-        <div className="cardRank" style={{ maxWidth: 20 }}>{rank}</div>
-        <img className="suitIcon" src={icon} style={{ width: 20 }}/>        
-      </div>
-   */
-
+  
   return (
-    <div className="OneCard">
-      <div className="symbolTop">
-        <div className="cardRank">{rank}</div>
-        <img className="suitIcon" src={icon} />
-      </div>
-      <div>
-        <img className="symbolCenter" src={icon} />
-      </div>
-      <div className="symbolBottom">
-        <div className="cardRank">{rank}</div>
-        <img className="suitIcon" src={icon} />        
-      </div>
-    </div> 
-  );
+    <div>
+      { 
+        (back === false) ?
+          <div className="OneCard">
+            <div className="symbolTop">
+              <div className="cardRank">{rank}</div>
+              <img className="suitIcon" src={icon} />
+            </div>
+            <div>
+              <img className="symbolCenter" src={icon} />
+            </div>
+            <div className="symbolBottom">
+              <div className="cardRank">{rank}</div>
+              <img className="suitIcon" src={icon} />        
+            </div>
+          </div> 
+        :  <div className="BackCard"></div>
+      }
+    </div>  
+  ); 
 }; 
 export default CardBox;

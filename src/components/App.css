@@ -36,8 +36,8 @@ button {
   border: none;
   background-color: white;
   color: black;
-  font-size: 30px;
-  padding: 10px;
+  font-size: 20px;
+  padding: 10px 15px;
   border: 1px solid  black;
   border-radius: 10px;
   margin: 10px;
@@ -59,18 +59,3 @@ button:active {
 button:focus {
   outline: black !important;
 }
-/*
-.bp-medium {
-  font-size: 20px;
-}
-.bp-small {
-  font-size: 18px;
-  color: #61dafb;
-  border: 1px solid #61dafb;
-}
-.bp-mobileOnly {
-  font-size: 14px;
-  color: #61dafb;
-  border: 1px solid #61dafb;
-}
-*/

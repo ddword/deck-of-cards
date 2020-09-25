@@ -19,6 +19,7 @@ const DeckBox: React.FC<Props>= (props) => {
   let [data, setData] = useState(deck);
   // watch cards state when you do shuffle, deal one card
   let [cards, setCards] = useState<ICard[]>([]);
+  let [back, setFront] = useState<boolean>(false);
 
   const onShuffle = (deck: any[]) => {
     // reset cards in hand
@@ -37,7 +38,7 @@ const DeckBox: React.FC<Props>= (props) => {
       temporaryValue = deck[currentIndex];
       deck[currentIndex] = deck[randomIndex];
       deck[randomIndex] = temporaryValue;
-    };console.log("Here shuffle", deck)
+    };
     return deck;
   }
 
@@ -51,20 +52,25 @@ const DeckBox: React.FC<Props>= (props) => {
     props.parentOneCardCallback(cards);
     data.splice(idx, 1);
   }
-console.log("RES data", data)
+  
+  const onFlip = () => {
+    setFront(!back)
+  };
+
   return (
     <div className="DeckContent">
       <div className="container">
         {data && data.map((card: ICard, index) => {
           return (
             <div key={card.id} onClick={() => dealOneCard(card, index)}>
-              <CardBox rank={card.rank} suit={card.suit} id={card.id}/>
+              <CardBox rank={card.rank} suit={card.suit} id={card.id} back={back}/>
             </div>
           ); 
         })}
       </div>
       <div className="button-container">
         <button onClick={() => onShuffle(deck)}>Shuffle</button>
+        <button onClick={() => onFlip()}>Flip</button>
       </div>
     </div>
   )
