@@ -14,3 +14,27 @@
     transition-timing-function: ease;
     transition-delay: 0s;
 }
+.symbolTop { 
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+.cardRank {
+    max-width: 20px 
+}
+.suitIcon {
+    width: 20px
+}
+.symbolCenter{
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) 
+}
+.symbolBottom{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    transform: rotate(-180deg)
+}

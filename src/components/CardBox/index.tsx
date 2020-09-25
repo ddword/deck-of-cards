@@ -8,50 +8,65 @@ import diamond from "../../images/diamond.svg";
 interface ICard {
   rank: string|number;
   suit: string;
+  id: number;
 }
 
 type Props = {
   rank: string|number;
   suit: string;
+  id: number;
 }
 const CardBox = (props: Props) => {
-  const { rank, suit } = props;
+  const { rank, suit, id } = props;
   let [icon, setIcon] = useState<string|undefined>(undefined);
 
   useEffect(() => {
     let result = getCardIcon(suit);
+    console.log("Suit icon",result, suit)
     setIcon(result)
   },[icon])
 
   const getCardIcon = (suit: string) => {
-    let x;
-    if (suit === "Diamonds") {
-      x = diamond;
-    }
-    if (suit === "Hearts") {
-      x = heart;
-    }
-    if (suit === "Clubs") {
-      x = club
-    }
-    if (suit === "Spades") {
-      x = spade
-    }
-    return x;
+    let symbol;
+    switch(suit) {
+      case "Diamonds":
+        return symbol = diamond;
+      case "Hearts":
+        return symbol = heart;
+      case "Clubs":
+        return symbol = club;
+      case "Spades":
+        return symbol = spade;
+      default:
+        return symbol;
+    };
   };
+  /**
+   * <div className="symbolTop" style={{ position: "absolute", top: 5, left: 5 }}>
+        <div className="cardRank" style={{ maxWidth: 20 }}>{rank}</div>
+        <img className="suitIcon" src={icon} style={{ width: 20 }}/>
+      </div>
+      <div>
+        <img className="symbolCenter" src={icon} style={{ height: 40, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}/>
+      </div>
+      <div className="symbolBottom" style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
+        <div className="cardRank" style={{ maxWidth: 20 }}>{rank}</div>
+        <img className="suitIcon" src={icon} style={{ width: 20 }}/>        
+      </div>
+   */
 
   return (
     <div className="OneCard">
-      <div style={{ position: "absolute", top: 5, left: 5 }}>
-        <div style={{ maxWidth: 20 }}>{rank}</div>
-        <img src={icon} style={{ maxWidth: 20 }}/>
+      <div className="symbolTop">
+        <div className="cardRank">{rank}</div>
+        <img className="suitIcon" src={icon} />
       </div>
       <div>
-        <img src={icon} style={{ height: 40, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}/>
+        <img className="symbolCenter" src={icon} />
       </div>
-      <div style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
-        <div style={{ maxWidth: 20 }}>{rank}</div>
-        <img src={icon} style={{ maxWidth: 20 }}/>        
+      <div className="symbolBottom">
+        <div className="cardRank">{rank}</div>
+        <img className="suitIcon" src={icon} />        
       </div>
     </div> 
   );

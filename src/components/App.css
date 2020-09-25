@@ -14,8 +14,11 @@
   color: white;
 }
 
-.App-link {
+.App-header p {
+  padding: 0 10px;
+  font-size: 16px;
   color: #61dafb;
+  color: white;
 }
 
 .App .card-container{
@@ -56,6 +59,7 @@ button:active {
 button:focus {
   outline: black !important;
 }
+/*
 .bp-medium {
   font-size: 20px;
 }
@@ -69,3 +73,4 @@ button:focus {
   color: #61dafb;
   border: 1px solid #61dafb;
 }
+*/

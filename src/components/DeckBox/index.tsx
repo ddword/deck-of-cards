@@ -5,6 +5,7 @@ import './index.css';
 interface ICard {
   rank: string|number;
   suit: string;
+  id: number;
 }
 
 type Props = {
@@ -26,20 +27,21 @@ const DeckBox: React.FC<Props>= (props) => {
     // do shuffle
     let newData = shuffle(deck);
     setData([...newData]);
-    // console.log("Shuffle data", data[0], data[1])
   }
 
   const shuffle = (deck: any[]) => {
-    let m = deck.length;
-    let i = 0;
-    while(m){
-      i = Math.floor(Math.random() * m--);
-      [deck[m], deck[i]] = [deck[i], deck[m]];
-    }
+    let currentIndex = deck.length, temporaryValue, randomIndex;
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = deck[currentIndex];
+      deck[currentIndex] = deck[randomIndex];
+      deck[randomIndex] = temporaryValue;
+    };console.log("Here shuffle", deck)
     return deck;
   }
 
-  const dealOneCard = (card:ICard, id:number) => {
+  const dealOneCard = (card:ICard, idx:number) => {
     //deal cards by one, accumulate it in hand 
     if (cards.length < 52) {
       cards.push(card);
@@ -47,16 +49,16 @@ const DeckBox: React.FC<Props>= (props) => {
     }
     // transfer cards to parent App
     props.parentOneCardCallback(cards);
-    data.splice(id, 1);
+    data.splice(idx, 1);
   }
-
+console.log("RES data", data)
   return (
     <div className="DeckContent">
       <div className="container">
         {data && data.map((card: ICard, index) => {
           return (
-            <div className="animated slideInDown" key={index} onClick={() => dealOneCard(card, index)}>
-              <CardBox rank={card.rank} suit={card.suit} />
+            <div key={card.id} onClick={() => dealOneCard(card, index)}>
+              <CardBox rank={card.rank} suit={card.suit} id={card.id}/>
             </div>
           ); 
         })}
