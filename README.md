@@ -1,7 +1,7 @@
 # Deck of Cards assessment 
 
 ## Summary of the approach
-- To describe shape of file object I used interface `IVard`
+- To describe shape of file object I used interface `ICard`
 
 - To pass event from `(Child)` to `(Parent)` use callback approach: 
     - defined callback in Parent -> 
